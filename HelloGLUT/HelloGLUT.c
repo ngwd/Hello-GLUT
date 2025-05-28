@@ -5,6 +5,9 @@
  */
 
 #include <stdlib.h>
+#include <stdio.h>
+// Always include glew.h before freeglut.h or gl.h
+#include <GL/glew.h>
 #include <GL/glut.h>
 #include "Callbacks.h"
 
@@ -15,6 +18,13 @@ int main(int argc, char** argv)
 
   /* Create a single window with a keyboard and display callback */
   glutCreateWindow("GLUT Test");
+
+  GLenum err = glewInit();
+  if (GLEW_OK != err) {
+    printf("GLEW init failed: %s\n", glewGetErrorString(err));
+    return 1;
+  }
+
   glutKeyboardFunc(&keyboard);
   glutDisplayFunc(&display);
 
